@@ -62,7 +62,7 @@ const Form = () => {
                 coords: coordsArray, 
                 id: Date.now().toString() 
             };
-            await axios.post("http://localhost:5000/items", newEntry);
+            await axios.post("http://217.71.129.139:5076/items", newEntry);
             navigate('/');
         } catch (error) {
             alert("Ошибка при сохранении данных");

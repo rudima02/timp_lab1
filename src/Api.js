@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = "http://localhost:5000/items";
+const BASE_URL = "http://217.71.129.139:5076/items";
 
 export const fetchItems = () => axios.get(BASE_URL);
 export const fetchItemById = (id) => axios.get(`${BASE_URL}/${id}`);
