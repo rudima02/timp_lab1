@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { fetchItemById, updateItem, deleteItem } from '../Api';
 import Loader from '../components/Loader';
+// Добавляем импорты для карты
+import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 
 const DetailView = () => {
     const { id } = useParams();
@@ -77,7 +79,7 @@ const DetailView = () => {
 
     return (
         <div style={{ padding: '20px', fontFamily: 'Arial', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <div style={{ width: '100%', maxWidth: '450px', backgroundColor: 'white', padding: '25px', borderRadius: '15px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)', border: '1px solid lightgray' }}>
+            <div style={{ width: '100%', maxWidth: '500px', backgroundColor: 'white', padding: '25px', borderRadius: '15px', boxShadow: '0 4px 15px rgba(0,0,0,0.1)', border: '1px solid lightgray' }}>
                 <h2 style={{ color: 'darkslategray', borderBottom: '2px solid blue', paddingBottom: '10px', marginTop: '0' }}>
                     {isEditing ? 'Редактирование' : item.name}
                 </h2>
@@ -139,6 +141,29 @@ const DetailView = () => {
                             <p><strong>Статус:</strong> 
                                 <span style={{ color: item.status === 'В норме' ? 'green' : (item.status === 'Требует осмотра' ? 'orange' : 'red'), marginLeft: '10px', fontWeight: 'bold' }}>{item.status}</span>
                             </p>
+                            
+                            {/* Блок с картой */}
+                            {item.coords ? (
+                                <div style={{ marginTop: '20px', width: '100%', height: '250px', borderRadius: '8px', overflow: 'hidden', border: '1px solid lightgray' }}>
+                                    <YMaps query={{ apikey: '1f34c1cc-ebee-49da-874b-49846a6e7e1e' }}>
+                                        <Map 
+                                            defaultState={{ center: item.coords, zoom: 15 }} 
+                                            width="100%" 
+                                            height="100%"
+                                        >
+                                            <Placemark 
+                                                geometry={item.coords} 
+                                                properties={{ balloonContent: item.name }} 
+                                            />
+                                        </Map>
+                                    </YMaps>
+                                </div>
+                            ) : (
+                                <div style={{ marginTop: '20px', padding: '20px', backgroundColor: 'whitesmoke', textAlign: 'center', color: 'gray', borderRadius: '8px' }}>
+                                    Координаты для этого объекта не заданы.
+                                </div>
+                            )}
+
                             <div style={{ display: 'flex', gap: '10px', marginTop: '25px' }}>
                                 <button onClick={() => setIsEditing(true)} style={{ backgroundColor: 'orange', color: 'white', padding: '10px', border: 'none', flex: '1', borderRadius: '5px', cursor: 'pointer' }}>Изменить</button>
                                 <button onClick={handleDelete} style={{ backgroundColor: 'red', color: 'white', padding: '10px', border: 'none', flex: '1', borderRadius: '5px', cursor: 'pointer' }}>Удалить</button>
@@ -149,7 +174,7 @@ const DetailView = () => {
             </div>
 
             <div style={{ marginTop: '20px' }}>
-                <Link to="/" style={{ color: 'blue', textDecoration: 'none', fontWeight: 'bold' }}>← Назад к списку</Link>
+                <Link to="/" style={{ color: 'blue', textDecoration: 'none', fontWeight: 'bold' }}>Назад к списку</Link>
             </div>
         </div>
     );

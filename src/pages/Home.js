@@ -86,7 +86,7 @@ const Home = ({ setAuth }) => {
                         display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '600px', backgroundColor: 'white'
                     }}>
                         <div>
-                            <strong>{item.name}</strong> —{' '}
+                            <strong>{item.name}</strong> –{' '}
                             <span style={{ 
                                 fontWeight: 'bold',
                                 color: item.status === 'В норме' ? 'seagreen' : item.status === 'Требует осмотра' ? 'orange' : item.status === 'Критическая ошибка' ? 'crimson' : 'dimgray'
@@ -107,7 +107,7 @@ const Home = ({ setAuth }) => {
                     <button 
                         onClick={() => {
                             setShowPopup(false);
-                            setTimeout(getRandomPosition, 2000);
+                            setTimeout(getRandomPosition, 100);
                         }} 
                         style={{
                             background: 'crimson', border: 'none', borderRadius: '50%', width: '30px', height: '30px',
