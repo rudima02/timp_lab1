@@ -31,7 +31,7 @@ const Detail = () => {
     useEffect(() => {
         const loadItem = async () => {
             try {
-                const response = await axios.get(`http://217.71.129.139:5076/${id}`);
+                const response = await axios.get(`http://217.71.129.139:5082/${id}`);
                 const data = response.data;
                 
                 if (nameRef.current) nameRef.current.value = data.name || '';
@@ -78,7 +78,7 @@ const Detail = () => {
         };
 
         try {
-            await axios.put(`http://217.71.129.139:5076/${id}`, updatedItem);
+            await axios.put(`http://217.71.129.139:5082/${id}`, updatedItem);
             navigate('/');
         } catch (err) {
             handleError(err);
